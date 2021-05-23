@@ -28,7 +28,7 @@ def danbooru_pic():
     Be aware that with free tier you will only be able to use 2 criteria to search with. # Payload is in a 'criteria'='vlaue' pair 
     see https://testbooru.donmai.us/wiki_pages/help%3Acheatsheet for more information
     '''
-    payload='random=True&tags=order%3Arank'
+    payload='tags=order%3Arandom+score%3A>75'
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     response = requests.request("GET", url, headers=headers, data=payload)
     
