@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 # Base URL to search for posts in json format on danbooru.donmai.us
-base_url = "https://danbooru.donmai.us/posts.json?"
+base_url = "https://safebooru.donmai.us/posts.json?"
 
 # API Key generated
 api_key = os.getenv('API_KEY')
@@ -28,7 +28,7 @@ def danbooru_pic():
     Be aware that with free tier you will only be able to use 2 criteria to search with. # Payload is in a 'criteria'='vlaue' pair 
     see https://testbooru.donmai.us/wiki_pages/help%3Acheatsheet for more information
     '''
-    payload='random=True&tags=rating%3As'
+    payload='random=True&tags=order%3Aranking'
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     response = requests.request("GET", url, headers=headers, data=payload)
     
