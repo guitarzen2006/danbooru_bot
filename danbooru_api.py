@@ -16,7 +16,7 @@ api_key = os.getenv('API_KEY')
 # login account
 login = os.getenv('USERNAME')
 
-def danbooru_pic(limit_count = 1):
+def danbooru_pic(limit_count):
 
     '''
     This function pulls a picture from danbooru. The payload options can be manipulated to search and pull various posts from the site.
