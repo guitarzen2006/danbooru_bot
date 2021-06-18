@@ -13,7 +13,7 @@ spacer = "=+"*40
 bot = commands.Bot(command_prefix='xx')
 
 def main():
-    # Output to console as bot is turned on
+    '''danbooru_bot is a simple discord bot that calls an API to safebooru.donmai.us to pull up to 5 anime pics of kawaii girls'''
     @bot.event
     async def on_ready():
         print(f'{bot.user.name} has connected to Discord')
