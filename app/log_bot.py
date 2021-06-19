@@ -19,7 +19,8 @@ file_handler.setFormatter(logger_format)
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
-def start_log(name):
+def log_start_app(name):
+    ''' This fuction is for when the bot.py app starts '''
     return logger.info(f"The {name} application has started.")
 
 def log_request(limit_amount, user):
