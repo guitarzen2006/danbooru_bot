@@ -1,7 +1,10 @@
 # danbooru_api.py
 from dotenv import load_dotenv
 import requests
-import os 
+import os
+
+from requests import exceptions
+import log_bot
 
 
 # Inialize envirnomentals
@@ -32,10 +35,17 @@ def danbooru_pic(limit_count):
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     
     response = requests.request("GET", url, headers=headers, data=payload)
-    
-    # save json output from request as pic_grab
-    pic_grab = response.json()
-    return (pic_grab)
+
+    try:
+        pic_grab = response.json()
+        # save json output from request as pic_grab
+        log_bot.log_api_http_response_200(response)
+        return (pic_grab)
+    except requests.exceptions.HTTPError as error:
+        # Not to self it appears this is not being read looks like discord has some sort of error handleling.
+        log_bot.log_api_http_response_error(error)
+    except requests.exceptions.ConnectionError as error:
+        log_bot.log_aip_http_response_error(error)
 
 if __name__ == "__main__":
     print(danbooru_pic(1))
