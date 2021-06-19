@@ -23,7 +23,10 @@ def log_start_app(name):
     ''' This fuction is for when the bot.py app starts '''
     return logger.info(f"The {name} application has started.")
 
-def log_request(limit_amount, user):
+def log_app_request(limit_amount, user):
     return logger.info(f"{user} has requested {limit_amount} pics.")
+
+def log_app_failure(message):
+    return logger.warn(message)
 
 

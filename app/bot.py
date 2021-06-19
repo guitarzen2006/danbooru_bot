@@ -24,7 +24,7 @@ def main():
     async def grab_pic(ctx, limit_amount=1):
         # Identify user
         user = ctx.author.name
-        log_bot.log_request(limit_amount, user)
+        log_bot.log_app_request(limit_amount, user)
         if limit_amount > 5:
             await ctx.send("Please limit your request to 5 pics.")
         elif limit_amount <= 5:
@@ -38,6 +38,7 @@ def main():
                 except:
                     message = (f'Sorry {user}-senpai, there was an issue with the request. 悪い、{user}-先輩。残念リクエストが失敗しました')
                     pic = None
+                    log_bot.log_app_failure(message)
                 await ctx.send(message)
                 await ctx.send(pic)
 
