@@ -18,7 +18,7 @@ def main():
     @bot.event
     async def on_ready():
         print(f'{bot.user.name} has connected to Discord')
-        log_bot.start_log(bot.user.name)
+        log_bot.log_start_app(bot.user.name)
 
     @bot.command(name='grab_pic', help='When the \'!!grab_pic [number of pics]\' is invoked, a random pic(s) from safebooru.donmai.us will be posted. ')
     async def grab_pic(ctx, limit_amount=1):
