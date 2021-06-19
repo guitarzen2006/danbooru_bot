@@ -1,3 +1,4 @@
+from discord.ext.commands import errors
 from discord.ext.commands.core import Command
 from discord.ext.commands.errors import CommandNotFound
 from dotenv import load_dotenv
@@ -55,6 +56,15 @@ def main():
                 message = (f'Sorry {user} there was an issue with safebooru.conmai.us, or the api. Please contact the administrator.')
                 log_bot.log_app_failure(message)
                 await ctx.send(message)
+
+    @bot.event
+    # Discord bot event handling
+    async def on_command_error(ctx, error):
+        user = ctx.author.name
+        if isinstance(error, errors.CommandNotFound):
+            log_bot.log_app_error(error, user)
+            await ctx.send(f'The command {user} typed is not found. Type \'!!help\' for more information. :thinking_face:')
+
     bot.run(token)
 
 if __name__ == "__main__":
