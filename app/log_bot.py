@@ -29,4 +29,9 @@ def log_app_request(limit_amount, user):
 def log_app_failure(message):
     return logger.warn(message)
 
+def log_api_http_response_200(http_response_code_200):
+    return logger.info(http_response_code_200)
+
+def log_api_http_response_error(http_response_code_error):
+    return logger.error(http_response_code_error)
 
