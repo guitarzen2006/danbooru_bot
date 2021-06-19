@@ -38,4 +38,4 @@ def danbooru_pic(limit_count):
     return (pic_grab)
 
 if __name__ == "__main__":
-    print(type(danbooru_pic()))
+    print(danbooru_pic(1))
