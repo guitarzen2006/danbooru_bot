@@ -1,3 +1,5 @@
+from discord.ext.commands.core import Command
+from discord.ext.commands.errors import CommandNotFound
 from dotenv import load_dotenv
 from discord.ext import commands
 import os
@@ -19,6 +21,11 @@ def main():
     async def on_ready():
         print(f'{bot.user.name} has connected to Discord')
         log_bot.log_start_app(bot.user.name)
+    
+    @bot.event
+    async def on_disconnect():
+        print(f'{bot.user.name} has diconnected from Discord')
+        log_bot.log_stopped_app(bot.user.name)
 
     @bot.command(name='grab_pic', help='When the \'!!grab_pic [number of pics]\' is invoked, a random pic(s) from safebooru.donmai.us will be posted. ')
     async def grab_pic(ctx, limit_amount=1):
@@ -29,19 +36,25 @@ def main():
             await ctx.send("Please limit your request to 5 pics.")
         elif limit_amount <= 5:
             raw_grab = danbooru_pic(limit_amount)
-            for posts in range(len(raw_grab)):
-                #raw_grab is a list - slice at [posts] and then at ['file_url'] for picture URL, if it does not exist send 'preview_file_url'
-                try:
-                    source = raw_grab[posts]['id']
-                    message = (f'{spacer} \n {user}, you can find this pic at this url: \'<https://safebooru.donmai.us/posts/{source}>\' \n')
-                    pic = raw_grab[posts]['file_url']
-                except:
-                    message = (f'Sorry {user}-senpai, there was an issue with the request. 悪い、{user}-先輩。残念リクエストが失敗しました')
-                    pic = None
-                    log_bot.log_app_failure(message)
+            if isinstance(raw_grab, list):
+                for posts in range(len(raw_grab)):
+                    #raw_grab is a list - slice at [posts] and then at ['file_url'] for picture URL, if it does not exist send 'preview_file_url'
+                    try:
+                        source = raw_grab[posts]['id']
+                        message = (f'{spacer} \n {user}, you can find this pic at this url: \'<https://safebooru.donmai.us/posts/{source}>\' \n')
+                        pic = raw_grab[posts]['file_url']
+                    except:
+                        # Error handling if raw_grab is a list but missing the 'file_url' key
+                        message = (f'Sorry {user}-senpai, there was an issue with the request. 悪い、{user}-先輩。残念リクエストが失敗しました')
+                        pic = None
+                        log_bot.log_app_failure(message)
+                    await ctx.send(message)
+                    await ctx.send(pic)
+            else:
+                # Error handling if raw_grab is not a list.
+                message = (f'Sorry {user} there was an issue with safebooru.conmai.us, or the api. Please contact the administrator.')
+                log_bot.log_app_failure(message)
                 await ctx.send(message)
-                await ctx.send(pic)
-
     bot.run(token)
 
 if __name__ == "__main__":
