@@ -1,0 +1,5 @@
+app/.env
+app.log
+temp/*
+.vscode/*
+app/__pycache__/*
