@@ -25,7 +25,7 @@ docker run --log-driver syslog danbooru_bot:latest &
 ```
 docker ps -a
 ```
-You should similar output.
+*You should have a similar output.*
 ```
 > sudo docker ps -a
 CONTAINER ID   IMAGE         COMMAND                 CREATED             STATUS                         PORTS     NAMES
