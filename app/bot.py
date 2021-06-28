@@ -14,7 +14,7 @@ token = os.getenv('DISCORD_TOKEN')
 spacer = "=+"*40
 
 # Initalize bot instance
-bot = commands.Bot(command_prefix='xx')
+bot = commands.Bot(command_prefix='!!')
 
 def main():
     '''danbooru_bot is a simple discord bot that calls an API to safebooru.donmai.us to pull up to 5 anime pics of kawaii girls '''
