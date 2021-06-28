@@ -6,4 +6,18 @@ Please note that safebooru is a default safe search, the actual site is [danboor
 
 # How I Run the Chatbot
 
-The chatbot's script is ran as a docker container on a virtualized device in the cloud.
+The chatbot's script is ran as a docker container on a virtualized device in the cloud. I am running danbooru_bot as a docker container on a server in the cloud. This is a high level overiview of how I build and running the docker container.
+
+1. First build the danbooru_bot docker container. This is ran in the same file that the 'Dockerfile' is found in.
+
+```
+docker build -t danbooru_bot:latest .
+```
+2. Verify that the Docker container has been built. You can check your local image inventory.
+```
+docker images
+```
+3. Run the image. You will note that I am running my container in the background and using the docker syslog plugin to send all logging to the host /var/log/syslog folder. The logging for this application by default will print logs to stdout and a file named app.log within the container.
+```
+docker run --log-driver syslog d078b &
+```
