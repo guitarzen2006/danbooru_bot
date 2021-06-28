@@ -19,5 +19,15 @@ docker images
 ```
 3. Run the image. You will note that I am running my container in the background and using the docker syslog plugin to send all logging to the host /var/log/syslog folder. The logging for this application by default will print logs to stdout and a file named app.log within the container.
 ```
-docker run --log-driver syslog d078b &
+docker run --log-driver syslog danbooru_bot:latest &
+```
+4. Verify that the container is running.
+```
+docker ps -a
+```
+You should similar output.
+```
+> sudo docker ps -a
+CONTAINER ID   IMAGE         COMMAND                 CREATED             STATUS                         PORTS     NAMES
+46241833e46a   d078b         "python ./app/bot.py"   55 minutes ago      Up 55 minutes                            jolly_khayyam
 ```
